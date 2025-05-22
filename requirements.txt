@@ -1,0 +1,4 @@
+Markdown==3.8
+pandas==2.2.3
+streamlit==1.45.1
+streamlit-tags==1.2.8
