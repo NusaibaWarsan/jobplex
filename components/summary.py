@@ -1,0 +1,31 @@
+import streamlit as st
+import markdown
+
+def render_summary(summary_text: str):
+    summary_html = markdown.markdown(summary_text)
+
+    st.markdown(
+        f"""
+        <div class="summary-box">
+            {summary_html}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+def render_latest_news(news_urls: list[str]):
+    links_html = "".join([
+        f'<li><a href="{url}" target="_blank" rel="noopener noreferrer">{url}</a></li>'
+        for url in news_urls
+    ])
+
+    st.markdown(
+        f"""
+        <div class="latest-news-box">
+            <ul>
+                {links_html}
+            </ul>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )

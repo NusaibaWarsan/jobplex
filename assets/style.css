@@ -1,0 +1,148 @@
+/* NAVIGATION BUTTONS */
+.myapp-nav-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.2rem;
+}
+
+.myapp-nav-buttons a {
+    color: #124559;
+    text-decoration: none;
+    background-color: #fffdf8;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+}
+
+.myapp-nav-buttons a:hover {
+    background-color: #124559;
+    color: #fffcf8;
+}
+
+/* */
+/* */
+/* */
+
+/* FORM ELEMENTS: LABELS + INPUTS */
+.input-label {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    display: block;
+    color: #124559;
+}
+
+input[type="text"] {
+    font-size: 1rem;
+    padding: 0.4rem 0.6rem;
+    color: #124559;
+}
+
+/* */
+/* */
+/* */
+
+/* SUBMIT BUTTON */
+.stButton > button {
+    margin-top: 0.58rem;
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+    background-color: #fffcf8;
+    color: #124559;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.stButton > button:hover {
+    background-color: #124559;
+    color: #fffcf8;
+}
+
+/* */
+/* */
+/* */
+
+
+/* BOX COMPONENTS: SUMMARY, NEWS, SENTIMENT */
+/* Shared styles */
+.summary-box,
+.latest-news-box,
+.sentiment-box {
+    border: 2px solid #aec3b0;
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 1rem;
+    line-height: 1.4;
+    box-sizing: border-box;
+    background-color: #f5f9f2;
+    width: 100% !important;
+}
+
+/* Color overrides */
+.summary-box,
+.latest-news-box {
+    color: #124559;
+}
+
+.sentiment-box {
+    color: #01161e;
+}
+
+/* Heights and scrolling */
+.summary-box {
+    min-height: 500px;
+    max-height: 500px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.latest-news-box {
+    min-height: 150px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* NEWS BOX LIST */
+.latest-news-box ul {
+    padding-left: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+/* */
+/* */
+/* */
+
+/* HYPERLINKS */
+a {
+    color: #aec3b0;
+    text-decoration: none;
+}
+
+.latest-news-box a:hover {
+    color: #124559;
+}
+
+/* */
+/* */
+/* */
+
+
+/* ALIGNMENT + SPACING FIXES */
+.dropdown-align {
+    padding-top: 6px;
+}
+
+.stTags label,
+.dropdown-align label {
+    margin-bottom: 50rem !important;
+    margin-top: 50rem;
+    display: block;
+}
+
+.stTags {
+    margin-top: -4px;
+}
