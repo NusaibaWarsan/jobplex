@@ -1,5 +1,5 @@
 import time
-from model import model_inference
+from .model import model_inference
 
 # placeholder_summary = """
 # ## Summary
