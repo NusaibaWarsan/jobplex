@@ -31,3 +31,15 @@ def render_latest_news(news_urls: list[str]):
         """,
         unsafe_allow_html=True
     )
+
+def render_join_company_sentiment(company_sentiment: str):
+    ssentiment_html = markdown.markdown(company_sentiment)
+
+    st.markdown(
+        f"""
+        <div class="sentiment-box">
+            {ssentiment_html}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
