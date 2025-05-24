@@ -6,8 +6,11 @@ def render_criteria_table(criteria_data):
 
     if criteria_data:
         df = pd.DataFrame(criteria_data)
-        st.dataframe(df, use_container_width=True)
+        html_table = df.to_html(index=False, escape=False)
+        st.markdown(html_table, unsafe_allow_html=True)
     else:
         st.write("No criteria selected or no data available.")
 
     st.markdown('</div>', unsafe_allow_html=True)
+
+

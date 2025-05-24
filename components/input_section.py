@@ -2,8 +2,8 @@ import streamlit as st
 from streamlit_tags import st_tags
 
 CRITERIA_OPTIONS = [
-    "Financial Health", "Growth Potential", "Work Culture",
-    "Innovation", "ESG", "Leadership", "Stability"
+    "Employee Satisfcation", "Career Progression", "Salary Increment", "Work Arrangemnent",
+    "Innovation", "Benefits", "Leadership", "Work Life Balance", "Work Culture"
 ]
 
 def render_input_section():

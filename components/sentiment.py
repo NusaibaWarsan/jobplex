@@ -1,65 +1,40 @@
 import streamlit as st
 import pandas as pd
 import altair as alt
-import markdown 
 
-def _get_sentiment_data():
-    data = pd.DataFrame({
-        'Month': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        'Positive': [60, 65, 70, 68, 75, 80],
-        'Neutral': [25, 20, 15, 18, 12, 10],
-        'Negative': [15, 15, 15, 14, 13, 10],
-    })
-    data_long = data.melt(id_vars='Month', var_name='Sentiment', value_name='Percentage')
-    return data_long
+@st.cache_data
+def load_reviews_data(company_tag):
+    if company_tag == "duolingo":
+        reviews = "glassdoor_reviews_db/duolingo_reviews.csv"
+    elif company_tag == "meta":
+        reviews = "glassdoor_reviews_db/meta_reviews.csv"
+    elif company_tag == "perplexity":
+        reviews = "glassdoor_reviews_db/perplexity_reviews.csv"
+    elif company_tag == "intel":
+        reviews = "glassdoor_reviews_db/intel_reviews.csv"
+    df = pd.read_csv(reviews)
+    df["Date"] = pd.to_datetime(df["Date"])
+    df["Month"] = df["Date"].dt.to_period("M").astype(str)
+    return df
 
-def render_sentiment_analysis():
-    col1, col2 = st.columns(2)
+def render_sentiment_chart(company_tag):
+    df = load_reviews_data(company_tag[0].lower())
 
-    with col1:
-        sentiment_text = """
-        **Sentiment Analysis Report:**  
+    grouped = df.groupby("Month").agg({
+        "Ratings": "mean",
+        "Title": "count"
+    }).reset_index().rename(columns={"Ratings": "Average Rating", "Title": "Review Count"})
 
-        Over the past 6 months, public sentiment around Intel Corporation has been generally positive, 
-        with a spike in positive mentions around their Q2 earnings report. Minor negative dips were observed 
-        due to workforce restructuring announcements, but these were temporary.
-        """
+    st.subheader("Average Employee Rating Over Time (Meta)")
 
-        sentiment_html = markdown.markdown(sentiment_text.strip())
-
-        st.markdown(
-            f"""
-            <div class="sentiment-box">
-                {sentiment_html}
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-    with col2:
-        data_long = _get_sentiment_data()
-
-        chart = alt.Chart(data_long).mark_line(point=True).encode(
-            x='Month',
-            y='Percentage',
-            color='Sentiment'
-        ).properties(
-            title='Sentiment Trend Over Time',
-            height=300
-        )
-
-        st.altair_chart(chart, use_container_width=True)
-
-def render_sentiment_chart():
-    data_long = _get_sentiment_data()
-
-    chart = alt.Chart(data_long).mark_line(point=True).encode(
-        x='Month',
-        y='Percentage',
-        color='Sentiment'
-    ).properties(
-        title='Sentiment Trend Over Time',
-        height=400  # taller chart for full width
-    )
+    chart = alt.Chart(grouped).mark_line(point=True).encode(
+        x=alt.X("Month:T", title="Month"),
+        y=alt.Y("Average Rating:Q", title="Average Rating", scale=alt.Scale(domain=[0, 5])),
+        tooltip=[
+            alt.Tooltip("Month:T", title="Month"),
+            alt.Tooltip("Average Rating:Q", title="Avg Rating", format=".2f"),
+            alt.Tooltip("Review Count:Q", title="Review Count")
+        ]
+    ).properties(height=400, width='container')
 
     st.altair_chart(chart, use_container_width=True)

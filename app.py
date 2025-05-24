@@ -46,7 +46,7 @@ with top_right:
         st.session_state.summary_text = get_summary_section(company_tags)
         st.session_state.latest_news = get_news(company_tags)
         st.session_state.join_sentiment = get_join_company_sentiment(company_tags, job_tags)
-        st.session_state.criteria_data = fetch_criteria_data(selected_criteria)
+        st.session_state.criteria_data = fetch_criteria_data(selected_criteria, job_tags, company_tags)
         st.session_state.sentiment_data = fetch_sentiment_data(company_tags, job_tags)
 
 # Main Page Content
@@ -64,8 +64,8 @@ with st.container():
                 render_join_company_sentiment(st.session_state.join_sentiment)
 
             with right_col:
-                render_criteria_table(selected_criteria)
-                render_sentiment_chart()
+                render_criteria_table(st.session_state.criteria_data)
+                render_sentiment_chart(company_tags)
 
     elif page == "about":
         st.write("## About")
