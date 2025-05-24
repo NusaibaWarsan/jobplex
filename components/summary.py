@@ -14,16 +14,18 @@ def render_summary(summary_text: str):
     )
 
 def render_latest_news(news_urls: list[str]):
-    links_html = "".join([
-        f'<li><a href="{url}" target="_blank" rel="noopener noreferrer">{url}</a></li>'
-        for url in news_urls
-    ])
+    # links_html = "".join([
+    #     f'<li><a href="{url}" target="_blank" rel="noopener noreferrer">{url}</a></li>'
+    #     for url in news_urls
+    # ])
+
+    news_html = markdown.markdown(news_urls)
 
     st.markdown(
         f"""
         <div class="latest-news-box">
             <ul>
-                {links_html}
+                {news_html}
             </ul>
         </div>
         """,

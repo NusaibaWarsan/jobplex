@@ -4,7 +4,8 @@ from components.input_section import render_input_section
 from components.sentiment import render_sentiment_chart
 from components.criteria import render_criteria_table
 from components.summary import render_summary, render_latest_news
-from services.summary_backend import fetch_summary_and_news
+from services.summary_backend import (
+    get_summary_section, get_news, get_join_company_sentiment)
 from services.criteria_backend import fetch_criteria_data
 from services.sentiment_backend import fetch_sentiment_data
 
@@ -33,7 +34,9 @@ company_tags, job_tags, selected_criteria = render_input_section()
 with top_right:
     if st.button("Submit", key="submit_button"):
         ## backend code goes into these functions
-        st.session_state.summary_text, st.session_state.latest_news = fetch_summary_and_news(company_tags, job_tags)
+        st.session_state.summary_text = get_summary_section(company_tags)
+        st.session_state.latest_news = get_news(company_tags)
+        st.session_state.join_sentiment = get_join_company_sentiment(company_tags, job_tags)
         st.session_state.criteria_data = fetch_criteria_data(selected_criteria)
         st.session_state.sentiment_data = fetch_sentiment_data(company_tags, job_tags)
 

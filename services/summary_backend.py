@@ -1,5 +1,5 @@
 import time
-from model import model_inference
+from .model import model_inference
 
 # placeholder_summary = """
 # ## Summary
@@ -107,10 +107,17 @@ def get_summary_section(company_tag):
 def get_news(company_tag):
     news_user_prompt = f"""
     Search and display the top 3 latest news articles about {company_tag}. Provide the title and a short summary in one sentence of each article. Ensure your response is in the format below:
+    Format:
     1. [Title of the article](URL to article)
-    - Summary of the article
+        - Summary of the article
 
-    Do not include citations in you response.
+    2. [Title of the article](URL to article)
+        - Summary of the article
+
+    3. [Title of the article](URL to article)
+        - Summary of the article
+
+    Ensure your response is in the specified format. Do not include citations in your response and do not add any additional text or explanation. Just provide the formatted response.
     """
     response = model_inference(news_user_prompt)
     return response['answer']

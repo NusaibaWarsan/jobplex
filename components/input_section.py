@@ -16,7 +16,7 @@ def render_input_section():
             value=[],
             suggestions=[],
             key="company_tags",
-            maxtags=2
+            maxtags=1
         )
 
     with col2:
