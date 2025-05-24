@@ -3,7 +3,8 @@ from components.header import render_header
 from components.input_section import render_input_section
 from components.sentiment import render_sentiment_chart
 from components.criteria import render_criteria_table
-from components.summary import render_summary, render_latest_news
+from components.summary import (
+    render_summary, render_latest_news, render_join_company_sentiment)
 from services.summary_backend import (
     get_summary_section, get_news, get_join_company_sentiment)
 from services.criteria_backend import fetch_criteria_data
@@ -26,6 +27,14 @@ if "latest_news" not in st.session_state:
 # Header + Inputs
 render_header()
 
+st.markdown("""
+<style>
+.big-font {
+    font-size:30px !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # Submit Button
 top_right = st.columns([1, 17, 1])[2]
 
@@ -47,14 +56,16 @@ with st.container():
             left_col, right_col = st.columns(2)
 
             with left_col:
+                st.markdown('<p class="big-font">Company Summary</p>', unsafe_allow_html=True)
                 render_summary(st.session_state.summary_text)
+                st.markdown('<p class="big-font">Latest News</p>', unsafe_allow_html=True)
                 render_latest_news(st.session_state.latest_news)
-                st.markdown("###")
+                st.markdown('<p class="big-font">Should I join now?</p>', unsafe_allow_html=True)
+                render_join_company_sentiment(st.session_state.join_sentiment)
 
             with right_col:
                 render_criteria_table(selected_criteria)
-
-            render_sentiment_chart()
+                render_sentiment_chart()
 
     elif page == "about":
         st.write("## About")
